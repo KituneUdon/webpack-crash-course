@@ -8,6 +8,15 @@ module.exports = {
     filename: "main.js",
     path: outputPath,
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        // 後ろから順番にloaderが動く
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
   devServer: {
     contentBase: outputPath,
   },
