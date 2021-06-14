@@ -1,42 +1,49 @@
-const path = require("path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-const outputPath = path.resolve(__dirname, "dist");
+const outputPath = path.resolve(__dirname, 'dist');
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
-    filename: "main.js",
+    filename: 'main.js',
     path: outputPath,
   },
   module: {
     rules: [
       {
+        // enforce: "pre"を設定したのでこれが最初に実行される
+        enforce: 'pre',
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        loader: 'eslint-loader',
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
       },
       {
         test: /\.(sc|c)ss$/,
         // 配列の末尾から順番にloaderが動く
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(jpe?g|png|gif|svg|ico)$/i,
-        loader: "url-loader",
+        loader: 'url-loader',
         options: {
           // 2kを超える画像を独立したファイルとして分離するよう設定
           // ブラウザで読み取る際に画像を並列に読み取ることができるようになるので、パフォーマンス面でも良い
           limit: 2048,
-          name: "./images/[name].[ext]",
+          name: './images/[name].[ext]',
         },
       },
       {
         test: /\.html$/,
-        loader: "html-loader",
+        loader: 'html-loader',
       },
     ],
   },
@@ -45,14 +52,14 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
-      filename: "./index.html",
+      template: './src/index.html',
+      filename: './index.html',
     }),
     // CSSを分割してHTMLから直接読み込むプラグイン
     new MiniCssExtractPlugin({
       // name : defaultでmainが入る
       // hash : ユニークなハッシュ値 キャッシュサーバにキャッシュされないためにユニークなハッシュ値をつける
-      filename: "[name].[hash].css",
+      filename: '[name].[hash].css',
     }),
   ],
   // optimization = 最適化
@@ -70,5 +77,5 @@ module.exports = {
       new OptimizeCSSAssetsPlugin({}),
     ],
   },
-  devtool: "eval-source-map",
+  devtool: 'eval-source-map',
 };
