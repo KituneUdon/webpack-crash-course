@@ -1,6 +1,9 @@
 # webpack-crash-course
 udemyの以下教材をやった際の記録用リポジトリ  
-https://www.udemy.com/course/webpack-crash-course/
+https://www.udemy.com/course/webpack-crash-course/  
+
+パッケージのバージョンは古いが、
+実際に動作するものを扱いたかったため、教材内で使用されているバージョンと同じバージョンを使用した
 
 # 教材通りに入力しても動かなかった点
 ## node-sassのversion
