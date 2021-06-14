@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const outputPath = path.resolve(__dirname, "dist");
 
@@ -46,10 +47,25 @@ module.exports = {
       template: "./src/index.html",
       filename: "./index.html",
     }),
+    // CSSを分割してHTMLから直接読み込むプラグイン
     new MiniCssExtractPlugin({
       // name : defaultでmainが入る
       // hash : ユニークなハッシュ値 キャッシュサーバにキャッシュされないためにユニークなハッシュ値をつける
       filename: "[name].[hash].css",
     }),
   ],
+  // optimization = 最適化
+  // 最適化の対象はminimizerに配列で渡す
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        test: /\.js(\?.*)?$/i,
+        uglifyOptions: {
+          compress: {
+            drop_console: true,
+          },
+        },
+      }),
+    ],
+  },
 };
