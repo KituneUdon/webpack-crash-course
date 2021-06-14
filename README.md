@@ -7,3 +7,5 @@ https://www.udemy.com/course/webpack-crash-course/
 教材内では4.10.0が使われていたが、私の環境ではインストールに失敗する  
 stack-overflowに4.14.0を入れれば良いという解答を見つけたので、それを試したら動いた  
 https://stackoverflow.com/questions/60394291/error-node-modules-node-sass-command-failed
+
+また、4.10.0を入れるときにpython2がないと言われたので、python2をインストールした
